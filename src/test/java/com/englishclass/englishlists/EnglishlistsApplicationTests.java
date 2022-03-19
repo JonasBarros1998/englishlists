@@ -1,13 +1,17 @@
 package com.englishclass.englishlists;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import com.englishclass.englishlists.application.model.List;
 
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
 class EnglishlistsApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void shouldToInsertAnNewUserInAList() {
+		List list = new List();
+		list.insertCardInList("House", "In my house", "casa");
+		assertEquals(1, list.getCards().size());
 	}
 
 }
