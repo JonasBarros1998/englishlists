@@ -2,11 +2,14 @@ package com.englishclass.englishlists.application.model;
 import java.util.ArrayList;
 
 public class List {
-  private final String title;
+  private String title;
   private ArrayList<Card> insertCardInList;
 
-  public List(String title) {
+  public List() {
     this.insertCardInList = new ArrayList<Card>();
+  }
+
+  public void setTitle(String title) {
     this.title = title;
   }
 
