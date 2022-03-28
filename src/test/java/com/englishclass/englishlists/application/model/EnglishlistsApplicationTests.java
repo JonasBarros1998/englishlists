@@ -3,7 +3,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,8 +18,9 @@ class EnglishlistsApplicationTests {
 	}
 
 	@Test
-	public void shouldToInsertAnNewUserInAList() {
-		List list = new List("my list");
+	public void shouldToInsertANewUserInAList() {
+		List list = new List();
+		list.setTitle("my first list");
 
 		for (Card card : listOfCards) {
 			list.insertCardInList(card);
