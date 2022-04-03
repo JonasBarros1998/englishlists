@@ -1,13 +1,13 @@
-package com.englishclass.englishlists;
+package com.englishclass.englishlist;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class EnglishlistsApplication {
+public class EnglishlistApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(EnglishlistsApplication.class, args);
+		SpringApplication.run(EnglishlistApplication.class, args);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.englishclass.englishlists.application.model;
+package com.englishclass.englishlist.application.model;
 
 public class Card {
 
