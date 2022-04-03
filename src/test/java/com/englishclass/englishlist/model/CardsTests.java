@@ -9,7 +9,7 @@ import com.englishclass.englishlist.application.model.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class Cards {
+class CardsTests {
 
 	private ArrayList<Card> listOfCards;
 
