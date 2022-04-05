@@ -1,7 +1,7 @@
-package com.englishclass.englishlist.adapters;
+package com.englishclass.englishlist.adapters.output;
 
 import com.englishclass.englishlist.application.model.ListOfCards;
 
-public interface ListRepository {
+public interface ListOfCardsRepository {
   void insert(ListOfCards list);
 }
