@@ -1,15 +1,15 @@
 package com.englishclass.englishlist.application.factory;
 
 import com.englishclass.englishlist.application.model.Card;
-import com.englishclass.englishlist.application.model.List;
+import com.englishclass.englishlist.application.model.ListOfCards;
 
 
 public class ListFactory {
 
-  private List list;
+  private ListOfCards list;
 
   public ListFactory() {
-    this.list = new List();
+    this.list = new ListOfCards();
   }
 
   public ListFactory addTitle(String title) {

@@ -1,11 +1,11 @@
 package com.englishclass.englishlist.application.model;
 import java.util.ArrayList;
 
-public class List {
+public class ListOfCards {
   private String title;
   private ArrayList<Card> insertCardInList;
 
-  public List() {
+  public ListOfCards() {
     this.insertCardInList = new ArrayList<Card>();
   }
 
