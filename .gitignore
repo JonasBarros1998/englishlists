@@ -33,3 +33,4 @@ build/
 .vscode/
 application.*
 maven-wrapper.*
+src/main/java/META-INF/additional-spring-configuration-metadata.json
