@@ -1,13 +1,22 @@
 package com.englishclass.englishlist.infra.mongoDB;
 
-import com.englishclass.englishlist.adapters.ListRepository;
-import com.englishclass.englishlist.application.model.List;
+import com.mongodb.client.MongoClient;
 
-public class MongoDBRepository implements ListRepository {
+abstract public class MongoDBRepository {
 
-  @Override
-  public void insert(List list) {
-    list.getTitle();
-    list.getCards();
+  private MongoClient mongoClient;
+  private final Connection connection;
+
+  public MongoDBRepository() {
+    this.connection = new Connection();
+  }
+  
+  protected MongoClient openConnection() {
+    this.mongoClient = this.connection.mongoClient();
+    return this.mongoClient;
+  }
+
+  protected void closeConnection() {
+    this.mongoClient.close();
   }
 }
