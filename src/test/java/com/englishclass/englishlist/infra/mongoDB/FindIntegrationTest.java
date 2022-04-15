@@ -8,7 +8,7 @@ import com.englishclass.englishlist.application.DTO.ListOfCardsDTO;
 
 import org.junit.jupiter.api.Test;
 
-public class MongoDBRepositoryIntegrationTest {
+public class FindIntegrationTest {
 
   @Test
   public void shouldFindAllCardsOnDatabase() {
