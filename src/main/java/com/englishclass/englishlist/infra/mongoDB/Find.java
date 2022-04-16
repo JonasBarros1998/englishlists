@@ -5,12 +5,18 @@ import java.util.List;
 
 import com.englishclass.englishlist.application.DTO.CardDTO;
 import com.englishclass.englishlist.application.DTO.ListOfCardsDTO;
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import static com.mongodb.client.model.Filters.gt;
 
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 public class Find extends MongoDBRepository {
+
+  private ObjectId lastDocumentId;
+  private MongoCursor<Document> cursorPagination;
   
   public Find() {
     super();
@@ -66,7 +72,40 @@ public class Find extends MongoDBRepository {
     return lists;
   }
 
-  public void document(int limit) {
-    // criar paginação
+  public ArrayList<ListOfCardsDTO> document(int limit) {
+    ArrayList<ListOfCardsDTO> lists = new ArrayList<ListOfCardsDTO>();
+    
+    MongoCollection<Document> collection = super.openConnection()
+      .getDatabase("englishlists")
+      .getCollection("lists");
+    
+    if (this.lastDocumentId == null) {
+      this.cursorPagination = collection.find().limit(limit).iterator();
+    }
+    else {
+      this.cursorPagination = collection.find(gt("_id", this.lastDocumentId)).limit(limit).iterator();
+    }
+
+    if (this.cursorPagination.hasNext() == false) {
+      return lists;
+    }
+    
+    while (this.cursorPagination.hasNext()) {
+      Document document = this.cursorPagination.next();
+      List<Document> documentOfCards = document.getList("cards", Document.class);
+      ArrayList<CardDTO> cards = this.dtoCardsIntegration(documentOfCards);
+      lists.add(this.dtoListOfCardsIntegration(cards, document));
+    }
+
+    ListOfCardsDTO lastElement = lists.get(lists.size() - 1);
+    setLastDocumentId(lastElement.getId());
+
+    super.closeConnection();
+    return lists;
   }
+
+  private void setLastDocumentId(ObjectId id) {
+    this.lastDocumentId = id;
+  }
+
 }
