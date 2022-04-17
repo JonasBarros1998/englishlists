@@ -1,6 +1,8 @@
 package com.englishclass.englishlist.infra.mongoDB;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
@@ -21,17 +23,16 @@ public class FindIntegrationTest {
   public void shouldReturnDocumentPagination() {
     Find find = new Find();
     assertEquals(find.document(2).size(), 2);
-    assertEquals(find.document(2).size(), 2);
-    assertEquals(find.document(1).size(), 1);
+    assertEquals(find.getHasNextDocument(), true);
   }
 
   @Test
-  public void shouldReturnZeroDocumentsIfThereArentDocumentsForReceiver() {
+  public void shouldReturnZeroDocumentsIfExistDocumentsForGet() {
     Find find = new Find();
-    find.document(2).size();
-    find.document(2).size();
-    find.document(1).size();
-
-    assertEquals(find.document(1).size(), 0);
+    ArrayList<ListOfCardsDTO> firstPage = find.document(2);
+    ArrayList<ListOfCardsDTO> secondPage = find.document(3, firstPage.get(firstPage.size() - 1).getId());
+    ArrayList<ListOfCardsDTO> thirdPage = find.document(1, secondPage.get(secondPage.size() - 1).getId());
+    assertEquals(thirdPage.size(), 0);
+    assertFalse(find.getHasNextDocument());
   }
 }

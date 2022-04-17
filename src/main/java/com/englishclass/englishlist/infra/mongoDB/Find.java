@@ -15,7 +15,7 @@ import org.bson.types.ObjectId;
 
 public class Find extends MongoDBRepository {
 
-  private ObjectId lastDocumentId;
+  private boolean hasNextDocument;
   private MongoCursor<Document> cursorPagination;
   
   public Find() {
@@ -52,7 +52,6 @@ public class Find extends MongoDBRepository {
     return listOfCards;
   }
 
-
   public ArrayList<ListOfCardsDTO> document() {
     ArrayList<ListOfCardsDTO> lists = new ArrayList<ListOfCardsDTO>();
 
@@ -61,6 +60,11 @@ public class Find extends MongoDBRepository {
       .getCollection("lists");
     
     MongoCursor<Document> cursor = collection.find().iterator();
+
+    if (cursor.hasNext() == false) {
+      this.setHasNextDocument(false);
+      return lists;
+    }
 
     while(cursor.hasNext()) {
       Document document = cursor.next();
@@ -72,21 +76,37 @@ public class Find extends MongoDBRepository {
     return lists;
   }
 
+
   public ArrayList<ListOfCardsDTO> document(int limit) {
+    ArrayList<ListOfCardsDTO> lists = new ArrayList<ListOfCardsDTO>();
+
+    MongoCollection<Document> collection = super.openConnection()
+      .getDatabase("englishlists")
+      .getCollection("lists");
+    
+    MongoCursor<Document> cursor = collection.find().limit(limit).iterator();
+
+    while(cursor.hasNext()) {
+      Document document = cursor.next();
+      List<Document> documentOfCards = document.getList("cards", Document.class);
+      ArrayList<CardDTO> cards = this.dtoCardsIntegration(documentOfCards);
+      lists.add(this.dtoListOfCardsIntegration(cards, document));
+    }
+    super.closeConnection();
+    return lists;
+  }
+
+  public ArrayList<ListOfCardsDTO> document(int limit, ObjectId lastDocumentId) {
     ArrayList<ListOfCardsDTO> lists = new ArrayList<ListOfCardsDTO>();
     
     MongoCollection<Document> collection = super.openConnection()
       .getDatabase("englishlists")
       .getCollection("lists");
-    
-    if (this.lastDocumentId == null) {
-      this.cursorPagination = collection.find().limit(limit).iterator();
-    }
-    else {
-      this.cursorPagination = collection.find(gt("_id", this.lastDocumentId)).limit(limit).iterator();
-    }
+
+    this.cursorPagination = collection.find(gt("_id", lastDocumentId)).limit(limit).iterator();
 
     if (this.cursorPagination.hasNext() == false) {
+      this.setHasNextDocument(false);
       return lists;
     }
     
@@ -98,14 +118,31 @@ public class Find extends MongoDBRepository {
     }
 
     ListOfCardsDTO lastElement = lists.get(lists.size() - 1);
-    setLastDocumentId(lastElement.getId());
-
+    System.out.println("-------" + lastElement.getId());
+    this.existNextDocument(lastElement.getId());
     super.closeConnection();
     return lists;
   }
 
-  private void setLastDocumentId(ObjectId id) {
-    this.lastDocumentId = id;
+  private void setHasNextDocument(boolean nextDocument) {
+    this.hasNextDocument = nextDocument;
+  }
+
+  public boolean getHasNextDocument() {
+    return this.hasNextDocument;
+  }
+
+  private void existNextDocument(ObjectId lastDocumentId) {
+    MongoCollection<Document> collection = super.openConnection()
+      .getDatabase("englishlists")
+      .getCollection("lists");
+    
+    MongoCursor<Document> document = collection
+      .find(gt("_id", lastDocumentId))
+      .limit(1)
+      .iterator();
+    
+    this.setHasNextDocument(document.hasNext());
   }
 
 }
