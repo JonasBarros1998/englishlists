@@ -1,6 +1,5 @@
 package com.englishclass.englishlist.application.DTO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
@@ -9,7 +8,7 @@ public class ListOfCardsDTO {
   private String title;
   private List<CardDTO> cards;
   private ObjectId id;
-  private Boolean isPrivate;
+  private boolean isPrivate;
   private String userId;
   private int quantityOfCards;
 
@@ -43,7 +42,7 @@ public class ListOfCardsDTO {
     return this.id;
   }
 
-  public Boolean getIsPrivate() {
+  public boolean getIsPrivate() {
     return this.isPrivate;
   }
 
