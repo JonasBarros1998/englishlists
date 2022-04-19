@@ -3,7 +3,25 @@ import java.util.ArrayList;
 
 public class ListOfCards {
   private String title;
-  private ArrayList<Card> insertCardInList;
+  private final ArrayList<Card> insertCardInList;
+  private Boolean isPrivate;
+  private int quantityOfCards;
+
+  public int getQuantityOfCards() {
+    return quantityOfCards;
+  }
+
+  public void setQuantityOfCards(int quantity) {
+    this.quantityOfCards = quantity;
+  }
+
+  public void setIsPrivate(boolean isProvate) {
+    this.isPrivate = isProvate;
+  }
+
+  public Boolean getIsPrivate() {
+    return isPrivate;
+  }
 
   public ListOfCards() {
     this.insertCardInList = new ArrayList<Card>();
