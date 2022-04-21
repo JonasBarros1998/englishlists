@@ -7,7 +7,6 @@ import com.englishclass.englishlist.application.model.ListOfCards;
 public class ListFactory {
 
   private ListOfCards list;
-  private Card card;
 
   public ListFactory() {
     this.list = new ListOfCards();
@@ -34,7 +33,8 @@ public class ListFactory {
   }
 
   public ListFactory addCard(String id, String word, String translation, String context) {
-    this.card = new Card(word, translation, context);
+    Card card = new Card(word, translation, context);
+    this.list.insertCardInList(card);
     return this;
   }
 
