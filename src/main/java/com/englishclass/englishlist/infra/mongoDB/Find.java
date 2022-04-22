@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.englishclass.englishlist.application.DTO.CardDTO;
 import com.englishclass.englishlist.application.DTO.ListOfCardsDTO;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import static com.mongodb.client.model.Filters.gt;
@@ -34,7 +33,7 @@ public class Find extends MongoDBRepository {
       document.getBoolean("isPrivate"),
       document.get("userId").toString(),
       quantityCards,
-      document.getObjectId("_id")
+      document.getObjectId("_id").toHexString()
     );
     
     return listOfCardsDTO;
@@ -45,10 +44,10 @@ public class Find extends MongoDBRepository {
 
     cards.forEach(card -> {
       CardDTO cartDTO = new CardDTO(
-        card.get("word").toString(),
-        card.get("translation").toString(),
         card.get("context").toString(),
-        card.get("id").toString()
+        card.get("id").toString(),
+        card.get("translation").toString(),
+        card.get("word").toString()
       );
       listOfCards.add(cartDTO);
     });
@@ -96,11 +95,11 @@ public class Find extends MongoDBRepository {
     return lists;
   }
 
-  public ArrayList<ListOfCardsDTO> document(int limit, ObjectId lastDocumentId) {
+  public ArrayList<ListOfCardsDTO> document(int limit, String lastDocumentId) {
     ArrayList<ListOfCardsDTO> lists = new ArrayList<ListOfCardsDTO>();
-
-    this.cursorPagination = this.collection.find(gt("_id", lastDocumentId)).limit(limit).iterator();
-
+    
+    ObjectId lastDocumentObjectId = new ObjectId(lastDocumentId);
+    this.cursorPagination = this.collection.find(gt("_id", lastDocumentObjectId)).limit(limit).iterator();
     if (this.cursorPagination.hasNext() == false) {
       this.setHasNextDocument(false);
       return lists;
@@ -126,9 +125,10 @@ public class Find extends MongoDBRepository {
     return this.hasNextDocument;
   }
 
-  private void existNextDocument(ObjectId lastDocumentId) {
+  private void existNextDocument(String lastDocumentId) {
+    ObjectId lastDocumentObjectId = new ObjectId(lastDocumentId);
     MongoCursor<Document> document = this.collection
-      .find(gt("_id", lastDocumentId))
+      .find(gt("_id", lastDocumentObjectId))
       .limit(1)
       .iterator();
     
