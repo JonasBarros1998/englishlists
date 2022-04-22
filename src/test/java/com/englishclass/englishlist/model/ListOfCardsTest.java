@@ -21,15 +21,16 @@ class ListOfCardsTest {
 	}
 
 	@Test
-	public void shouldToInsertANewUserInAList() {
+	public void shouldToInsertANewCardOnList() {
 		ListOfCards list = new ListOfCards();
-		list.setTitle("my first list");
+		list.setTitle("My list");
 
 		for (Card card : listOfCards) {
 			list.insertCardInList(card);
 		}
 
 		assertEquals(2, list.getCards().size());
+		assertEquals("My list", list.getTitle());
 	}
 
 }

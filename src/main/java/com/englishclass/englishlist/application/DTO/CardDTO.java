@@ -7,10 +7,10 @@ public class CardDTO {
   private String id;
 
   public CardDTO(String context, String id, String translation, String word) {
-    this.word = word;
-    this.translation = translation;
     this.context = context;
     this.id = id;
+    this.translation = translation;
+    this.word = word;
   }
 
   public String getWord() {

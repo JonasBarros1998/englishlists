@@ -1,15 +1,12 @@
 package com.englishclass.englishlist.application.DTO;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import org.bson.types.ObjectId;
 
 public class ListOfCardsDTO {
   private String title;
   private List<CardDTO> cards;
-  private ObjectId id;
-  private Boolean isPrivate;
+  private String id;
+  private boolean isPrivate;
   private String userId;
   private int quantityOfCards;
 
@@ -22,7 +19,7 @@ public class ListOfCardsDTO {
 
   }
 
-  public ListOfCardsDTO(String title, List<CardDTO> cards, Boolean isPrivate, String userId, int quantityOfCards, ObjectId id) {
+  public ListOfCardsDTO(String title, List<CardDTO> cards, Boolean isPrivate, String userId, int quantityOfCards, String id) {
     this.title = title;
     this.cards = cards;
     this.id = id;
@@ -39,11 +36,11 @@ public class ListOfCardsDTO {
     return this.cards;
   }
 
-  public ObjectId getId() {
+  public String getId() {
     return this.id;
   }
 
-  public Boolean getIsPrivate() {
+  public boolean getIsPrivate() {
     return this.isPrivate;
   }
 
@@ -56,7 +53,7 @@ public class ListOfCardsDTO {
   }
 
   public ListOfCardsDTO criarObjectId() {
-    this.id = new ObjectId();
+    this.id = new String();
     return this;
   }
 }
