@@ -28,4 +28,10 @@ public class DatabaseRepositoryImpl implements DatabaseRepository  {
     ArrayList<ListOfCardsDTO> listOfCardsDTO = this.find.document();
     return listOfCardsDTO;
   }
+
+  @Override
+  public ArrayList<ListOfCardsDTO> find(int limit, String id) {
+    ArrayList<ListOfCardsDTO> listOfCardsDTO = this.find.document(limit, id);
+    return listOfCardsDTO;
+  }
 }
