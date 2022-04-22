@@ -17,19 +17,24 @@ public class FindListOfCardsOnDatabase {
     this.repository = repository;
   }
   
-  public ArrayList<ListOfCards> findListOfCardsWithLimit(String quantity) {
+  public ArrayList<ListOfCardsDTO> findListOfCardsWithLimit(String quantity) {
     int quantityOfList = Integer.parseInt(quantity);
     ArrayList<ListOfCardsDTO> listOfCardsDTO = this.repository.find(quantityOfList);
-    return this.findListsOnDatabase(listOfCardsDTO);
+    this.findListsOnDatabase(listOfCardsDTO);
+    return listOfCardsDTO;
   }
 
-  public ArrayList<ListOfCards> findAllEnglishList() {
+  public ArrayList<ListOfCardsDTO> findAllEnglishList() {
     ArrayList<ListOfCardsDTO> listOfCardsDTO = this.repository.find();
-    return this.findListsOnDatabase(listOfCardsDTO);
+    this.findListsOnDatabase(listOfCardsDTO);
+    return listOfCardsDTO;
   }
 
-  public void findEnglishListWithPagination() {
-    
+  public ArrayList<ListOfCardsDTO> findEnglishListWithPagination(String quantity, String lastDocumentId) {
+    int quantityOfList = Integer.parseInt(quantity);
+    ArrayList<ListOfCardsDTO> listOfCardsDTO = this.repository.find(quantityOfList, lastDocumentId);
+    this.findListsOnDatabase(listOfCardsDTO);
+    return listOfCardsDTO;
   }
 
   private ListFactory createCard(List<CardDTO> cards, ListFactory factory) {
@@ -44,7 +49,8 @@ public class FindListOfCardsOnDatabase {
   }
 
   private ListFactory createListOfCards(ListOfCardsDTO listOfCardDTO, ListFactory factory) {
-    factory.addTitle(listOfCardDTO.getTitle())
+    factory
+      .addTitle(listOfCardDTO.getTitle())
       .addQuantity(listOfCardDTO.getQuantityOfCards())
       .addIsPrivate(listOfCardDTO.getIsPrivate());
 
@@ -60,9 +66,6 @@ public class FindListOfCardsOnDatabase {
       this.createCard(item.getListOfCards(), factory);
       listOfCards.add(factory.create());
     }
-
     return listOfCards;
-  } 
-
-
+  }
 }
