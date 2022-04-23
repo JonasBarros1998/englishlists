@@ -6,6 +6,7 @@ public class ListOfCards {
   private final ArrayList<Card> insertCardInList;
   private Boolean isPrivate;
   private int quantityOfCards;
+  private String userId;
 
   public int getQuantityOfCards() {
     return quantityOfCards;
@@ -42,4 +43,13 @@ public class ListOfCards {
   public ArrayList<Card> getCards() {
     return this.insertCardInList;
   }
+
+  public void setUserId(String userId) {
+    this.userId = userId;
+  }
+
+  public String getUserId() {
+    return this.userId;
+  }
+
 }
