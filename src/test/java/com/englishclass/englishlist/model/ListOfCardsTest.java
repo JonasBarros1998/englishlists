@@ -4,12 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 
 import com.englishclass.englishlist.application.model.Card;
-import com.englishclass.englishlist.application.model.List;
+import com.englishclass.englishlist.application.model.ListOfCards;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class CardsTests {
+class ListOfCardsTest {
 
 	private ArrayList<Card> listOfCards;
 
@@ -21,15 +21,16 @@ class CardsTests {
 	}
 
 	@Test
-	public void shouldToInsertANewUserInAList() {
-		List list = new List();
-		list.setTitle("my first list");
+	public void shouldToInsertANewCardOnList() {
+		ListOfCards list = new ListOfCards();
+		list.setTitle("My list");
 
 		for (Card card : listOfCards) {
 			list.insertCardInList(card);
 		}
 
 		assertEquals(2, list.getCards().size());
+		assertEquals("My list", list.getTitle());
 	}
 
 }
