@@ -10,34 +10,40 @@ public class ListOfCardsDTO {
   private String userId;
   private int quantityOfCards;
 
-  public ListOfCardsDTO(String title, List<CardDTO> cards, Boolean isPrivate, String userId, int quantityOfCards) {
+  public ListOfCardsDTO() {}
+
+  public ListOfCardsDTO(String title, List<CardDTO> cards, Boolean isPrivate, String userId, int getQuantityOfCards) {
     this.title = title;
     this.cards = cards;
     this.userId = userId;
-    this.quantityOfCards = quantityOfCards;
+    this.quantityOfCards = getQuantityOfCards;
     this.isPrivate = isPrivate;
 
   }
 
-  public ListOfCardsDTO(String title, List<CardDTO> cards, Boolean isPrivate, String userId, int quantityOfCards, String id) {
+  public ListOfCardsDTO(String title, List<CardDTO> cards, Boolean isPrivate, String userId, int getQuantityOfCards, String id) {
     this.title = title;
     this.cards = cards;
     this.id = id;
     this.isPrivate = isPrivate;
     this.userId = userId;
-    this.quantityOfCards = quantityOfCards;
+    this.quantityOfCards = getQuantityOfCards;
   }
 
   public String getTitle() {
     return this.title;
   }
 
-  public List<CardDTO> getListOfCards() {
+  public List<CardDTO> getCards() {
     return this.cards;
   }
 
   public String getId() {
     return this.id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 
   public boolean getIsPrivate() {
@@ -52,8 +58,4 @@ public class ListOfCardsDTO {
     return this.userId;
   }
 
-  public ListOfCardsDTO criarObjectId() {
-    this.id = new String();
-    return this;
-  }
 }
