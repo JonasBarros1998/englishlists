@@ -33,7 +33,7 @@ public class ListFactory {
   }
 
   public ListFactory addCard(String id, String word, String translation, String context) {
-    Card card = new Card(word, translation, context);
+    Card card = new Card(word, translation, context, id);
     this.list.insertCardInList(card);
     return this;
   }
