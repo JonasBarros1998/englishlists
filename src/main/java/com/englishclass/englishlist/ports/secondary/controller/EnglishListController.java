@@ -6,7 +6,9 @@ import com.englishclass.englishlist.application.DTO.ListOfCardsDTO;
 import com.englishclass.englishlist.application.factory.RepositoryFactory;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/englishlists")
-public class FindController {
+public class EnglishListController {
   
   @GetMapping(params="quantity")
   public ArrayList<ListOfCardsDTO> find(@RequestParam("quantity") String quantity) {
@@ -57,5 +59,16 @@ public class FindController {
     return factory
       .buildDatabaseRepositoryForInserNewEnglishList()
       .insertEnglishList(formDTO);
+  }
+
+  @PutMapping("/{id}")
+  public ListOfCardsDTO update(
+    @PathVariable String id,
+    @RequestBody ListOfCardsDTO formDTO) {
+    RepositoryFactory factory = new RepositoryFactory();
+
+    return factory
+      .buildDatabaseRepositoryForUpdateEnglishList()
+      .updateEnglishList(id, formDTO);
   }
 }
