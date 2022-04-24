@@ -1,5 +1,7 @@
 package com.englishclass.englishlist.application.factory;
 
+import com.englishclass.englishlist.application.DTO.CardDTO;
+import com.englishclass.englishlist.application.DTO.ListOfCardsDTO;
 import com.englishclass.englishlist.application.model.Card;
 import com.englishclass.englishlist.application.model.ListOfCards;
 
@@ -40,5 +42,23 @@ public class ListFactory {
 
   public ListOfCards create() {
     return this.list;
+  }
+
+  public ListOfCardsDTO toListOfCardsDTO(ListOfCardsDTO dto) {
+    this
+      .addTitle(dto.getTitle())
+      .addIsPrivate(dto.getIsPrivate())
+      .addQuantity(dto.getQuantityOfCards());
+    
+    for (CardDTO card : dto.getCards()) {
+      this.addCard(
+        card.getId(), 
+        card.getWord(), 
+        card.getTranslation(),
+        card.getContext()
+      );
+    }
+
+    return dto;
   }
 }
