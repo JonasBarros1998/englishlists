@@ -6,7 +6,7 @@ public class Card {
   private String translation;
   private String context;
 
-  public Card(String word, String translation, String context) {
+  public Card(String word, String translation, String context, String id) {
     this.word = word;
     this.translation = translation;
     this.context = context;
