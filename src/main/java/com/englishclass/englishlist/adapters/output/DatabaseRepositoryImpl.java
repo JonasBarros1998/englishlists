@@ -18,8 +18,8 @@ public class DatabaseRepositoryImpl implements DatabaseRepository  {
   }
 
   @Override
-  public void insert(ListOfCardsDTO listOfCardsDTO) {
-    this.insert.document(listOfCardsDTO);
+  public ListOfCardsDTO insert(ListOfCardsDTO listOfCardsDTO) {
+    return this.insert.document(listOfCardsDTO);
   }
 
   @Override
