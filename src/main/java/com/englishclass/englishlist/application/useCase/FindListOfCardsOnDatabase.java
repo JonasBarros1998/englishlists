@@ -63,7 +63,7 @@ public class FindListOfCardsOnDatabase {
 
     for (ListOfCardsDTO item : listOfCardsDTO) {
       this.createListOfCards(item, factory);
-      this.createCard(item.getListOfCards(), factory);
+      this.createCard(item.getCards(), factory);
       listOfCards.add(factory.create());
     }
     return listOfCards;

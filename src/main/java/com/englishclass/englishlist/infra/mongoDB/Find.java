@@ -45,7 +45,7 @@ public class Find extends MongoDBRepository {
     cards.forEach(card -> {
       CardDTO cartDTO = new CardDTO(
         card.get("context").toString(),
-        card.get("id").toString(),
+        card.get("_id").toString(),
         card.get("translation").toString(),
         card.get("word").toString()
       );

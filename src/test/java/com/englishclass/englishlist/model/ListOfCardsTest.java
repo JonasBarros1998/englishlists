@@ -16,8 +16,8 @@ class ListOfCardsTest {
 	@BeforeEach
 	public void inicializar() {
 		this.listOfCards = new ArrayList<Card>();
-		this.listOfCards.add(new Card("House", "In my house", "casa"));
-		this.listOfCards.add(new Card("red", "color", "vermelho"));
+		this.listOfCards.add(new Card("House", "In my house", "casa", "123"));
+		this.listOfCards.add(new Card("red", "color", "vermelho", "456"));
 	}
 
 	@Test

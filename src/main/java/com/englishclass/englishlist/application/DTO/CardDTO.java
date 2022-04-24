@@ -16,16 +16,32 @@ public class CardDTO {
   public String getWord() {
     return word;
   }
+
+  public void setWord(String word) {
+    this.word = word;
+  }
   
   public String getContext() {
     return context;
+  }
+
+  public void setContext(String context) {
+    this.context = context;
   }
 
   public String getTranslation() {
     return translation;
   }
 
+  public void setTranslation(String translation) {
+    this.translation = translation;
+  }
+
   public String getId() {
     return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
   }
 }
